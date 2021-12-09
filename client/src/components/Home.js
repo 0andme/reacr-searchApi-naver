@@ -6,10 +6,10 @@ import { Container } from "reactstrap";
 function Home() {
   const [selectedData, setSelectedData] = useState("");
   return (
-    <Container className="main">
+    <div className="main">
       <SearchBar setSelectedData={setSelectedData} />
       <ItemList selectedData={selectedData} />
-    </Container>
+    </div>
   );
 }
 
