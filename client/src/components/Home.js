@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SearchBar from "./SearchBar";
+import ItemList from "./ItemList";
 import { Container } from "reactstrap";
 
 function Home() {
@@ -7,6 +8,7 @@ function Home() {
   return (
     <Container className="main">
       <SearchBar setSelectedData={setSelectedData} />
+      <ItemList selectedData={selectedData} />
     </Container>
   );
 }
