@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import axios from "axios";
 import ItemListItem from "./ItemListItem";
 import { Pagination, PaginationItem, PaginationLink, Table } from "reactstrap";
@@ -9,13 +9,25 @@ function ItemList(props) {
   const [itemList, setItemList] = useState([]);
   // selectedData의 변화가 있을때만 api호출
   const [pageNum, setPageNum] = useState(1);
+  // 상품 검색 api body값 지정
+  const searchOptions = useMemo(() => {
+    return {
+      query: selectedData,
+      display: 10,
+      start: pageNum,
+      sort: "asc",
+    };
+  }, [selectedData, pageNum]);
   // pagination 렌더
   const pagelist = () => {
     const res = [];
     for (let index = 0; index < 10; index++) {
       res.push(
-        <PaginationItem>
-          <PaginationLink id={index} onClick={changePage}>
+        <PaginationItem key={index}>
+          <PaginationLink
+            id={searchOptions.display * index + 1}
+            onClick={changePage}
+          >
             {index + 1}
           </PaginationLink>
         </PaginationItem>
@@ -23,13 +35,7 @@ function ItemList(props) {
     }
     return res;
   };
-  // 상품 검색 api body값 지정
-  const searchOptions = {
-    query: selectedData,
-    display: 10,
-    start: pageNum,
-    sort: "asc",
-  };
+
   // 상품 검색 api 호출
   useEffect(() => {
     axios
@@ -40,7 +46,7 @@ function ItemList(props) {
       .catch((err) => {
         console.log("err", err);
       });
-  }, [selectedData, pageNum]);
+  }, [searchOptions]);
   return (
     <>
       <Table striped>
@@ -56,27 +62,13 @@ function ItemList(props) {
         {itemList.length > 0 && (
           <tbody className="itemList">
             {itemList.map((item, index) => (
-              <ItemListItem item={item} key={index} />
+              <ItemListItem item={item} key={item.productId} />
             ))}
           </tbody>
         )}
       </Table>
       <div className="itemList__pagination">
-        <Pagination>
-          <PaginationItem>
-            <PaginationLink first id="first"></PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink previous id="previous" />
-          </PaginationItem>
-          {pagelist()}
-          <PaginationItem>
-            <PaginationLink next id="next" />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink last id="last" />
-          </PaginationItem>
-        </Pagination>
+        <Pagination>{pagelist()}</Pagination>
       </div>
     </>
   );
