@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import SearchItem from "./SearchItem";
-import { Card, Input, CardHeader, ListGroup } from "reactstrap";
+import { Input, CardHeader, ListGroup } from "reactstrap";
 function SearchBar(props) {
   const [searchKeyWords, setSearchKeyWords] = useState([]);
   const [isSelectItem, setIsSelectItem] = useState(false);
