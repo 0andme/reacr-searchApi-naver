@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className="main">
       <SearchBar setSelectedData={setSelectedData} />
-      <ItemList selectedData={selectedData} />
+      {selectedData && <ItemList selectedData={selectedData} />}
     </div>
   );
 }
