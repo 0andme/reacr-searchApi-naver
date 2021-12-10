@@ -11,7 +11,7 @@ const client_secret = process.env.NAVER_CLIENT_SECRET;
 router.post("/", function (req, res, next) {
   const api_url = `https://openapi.naver.com/v1/search/shop.json?query=${encodeURI(
     req.body.query
-  )}`;
+  )}&display=${req.body.display}&start=${req.body.start}&sort=${req.body.sort}`;
   const request = require("request");
   const options = {
     url: api_url,
