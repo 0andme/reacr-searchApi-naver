@@ -14,14 +14,14 @@ function App() {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink href="/Chart" className="">
+            <NavLink href="/chart" className="">
               조회
             </NavLink>
           </NavItem>
         </Nav>
         <Routes>
           <Route path="/" element={<Home />}></Route>
-          <Route path="/Chart" element={<Chart />}></Route>
+          <Route path="/chart" element={<Chart />}></Route>
         </Routes>
       </Router>
     </div>
