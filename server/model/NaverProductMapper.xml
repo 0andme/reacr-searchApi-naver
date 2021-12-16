@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NaverProductMapper">  
+   <insert id="saveNaverProductNaver">
+    INSERT into product_naver (productId, title, image
+  , category1, category2
+  , category3, category4, buyCount
+  , insertDate)
+  VALUES (#{productId}, #{title}, #{image}
+  , #{category1}, #{category2}
+  , #{category3}, #{category4}, #{buyCount}
+  , now())
+  ON DUPLICATE KEY UPDATE
+  buyCount = buyCount + 1,
+  updateDate = now()
+  </insert>
+
+ <select id="selectProductStats">
+    select category1 , sum(buyCount) as buyCount
+    from react.product_naver
+    group by category1
+  </select>  
+
+  <select id="selectProductCategory">
+    SELECT productId , title, image, buyCount 
+    from react.product_naver
+    where category1 like concat('%',#{categoryName} , '%')
+  </select>
+</mapper>
