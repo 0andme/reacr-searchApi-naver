@@ -10,7 +10,7 @@
 li.searchedItem {
   cursor: pointer;
 }
-.itemList img {
+.itemList__item img {
   width: 100px;
 }
 
